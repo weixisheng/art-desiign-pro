@@ -1,3 +1,6 @@
+// For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
+import storybook from 'eslint-plugin-storybook'
+
 // 从 URL 和路径模块中导入必要的功能
 import fs from 'fs'
 import path, { dirname } from 'path'
@@ -23,8 +26,7 @@ export default [
   // 指定文件匹配规则
   {
     files: ['**/*.{js,mjs,cjs,ts,vue}']
-  },
-  // 指定全局变量和环境
+  }, // 指定全局变量和环境
   {
     languageOptions: {
       globals: {
@@ -32,12 +34,10 @@ export default [
         ...globals.node
       }
     }
-  },
-  // 扩展配置
+  }, // 扩展配置
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
-  ...pluginVue.configs['flat/essential'],
-  // 自定义规则
+  ...pluginVue.configs['flat/essential'], // 自定义规则
   {
     // 针对所有 JavaScript、TypeScript 和 Vue 文件应用以下配置
     files: ['**/*.{js,mjs,cjs,ts,vue}'],
@@ -60,15 +60,13 @@ export default [
       'no-multiple-empty-lines': ['warn', { max: 1 }], // 不允许多个空行
       'no-unexpected-multiline': 'error' // 禁止空余的多行
     }
-  },
-  // vue 规则
+  }, // vue 规则
   {
     files: ['**/*.vue'],
     languageOptions: {
       parserOptions: { parser: tseslint.parser }
     }
-  },
-  // 忽略文件
+  }, // 忽略文件
   {
     ignores: [
       'node_modules',
@@ -78,7 +76,7 @@ export default [
       'src/assets/**',
       'src/utils/console.ts'
     ]
-  },
-  // prettier 配置
-  eslintPluginPrettierRecommended
+  }, // prettier 配置
+  eslintPluginPrettierRecommended,
+  ...storybook.configs['flat/recommended']
 ]
