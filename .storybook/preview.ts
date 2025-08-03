@@ -1,4 +1,5 @@
 import type { Preview } from '@storybook/vue3-vite'
+import { createPinia } from 'pinia'
 
 const preview: Preview = {
   parameters: {
@@ -15,7 +16,21 @@ const preview: Preview = {
       // 'off' - skip a11y checks entirely
       test: 'todo'
     }
-  }
+  },
+  decorators: [
+    (story) => {
+      const pinia = createPinia()
+      return {
+        setup() {
+          return { story }
+        },
+        template: '<story />',
+        global: {
+          plugins: [pinia]
+        }
+      }
+    }
+  ]
 }
 
 export default preview

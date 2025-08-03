@@ -1,4 +1,6 @@
 import type { StorybookConfig } from '@storybook/vue3-vite'
+import AutoImport from 'unplugin-auto-import/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
@@ -27,6 +29,24 @@ const config: StorybookConfig = {
     } else {
       config.build = { target: 'es2020' }
     }
+
+    // 添加自动导入插件
+    if (!config.plugins) {
+      config.plugins = []
+    }
+
+    config.plugins.push(
+      AutoImport({
+        imports: ['vue', 'vue-router', '@vueuse/core', 'pinia'],
+        resolvers: [ElementPlusResolver()],
+        dts: false, // Storybook 环境下不需要生成类型文件
+        eslintrc: {
+          enabled: false
+        },
+        // 添加对 composables 的自动导入
+        dirs: ['src/composables']
+      })
+    )
 
     return config
   }
