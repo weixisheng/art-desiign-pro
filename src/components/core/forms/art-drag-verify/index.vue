@@ -107,11 +107,11 @@
   }
 
   // 响应式状态定义
-  const state = reactive(<StateType>{
+  const state = reactive({
     isMoving: false,
     x: 0,
     isOk: false
-  })
+  } as StateType)
 
   // 解构响应式状态
   const { isOk } = toRefs(state)
